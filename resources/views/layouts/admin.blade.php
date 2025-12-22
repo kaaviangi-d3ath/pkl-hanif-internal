@@ -81,33 +81,33 @@
                             {{-- Logic PHP di View ini hanya untuk contoh.
                                  Best Practice: Gunakan View Composer atau inject variable dari Controller.
                                  Jangan query database langsung di Blade view di production app! --}}
-                            @php
+                            {{-- @php
                                 $pendingCount = \App\Models\Order::where('status', 'pending')
                                     ->where('payment_status', 'paid')->count();
-                            @endphp
-                            @if($pendingCount > 0)
+                            @endphp --}}
+                            {{-- @if($pendingCount > 0)
                                 <span class="badge bg-warning text-dark ms-auto">{{ $pendingCount }}</span>
-                            @endif
+                            @endif --}}
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.users.index') }}"
                            class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                             <i class="bi bi-people me-2"></i> Pengguna
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item mt-3">
                         <span class="nav-link text-muted small text-uppercase">Laporan</span>
                     </li>
 
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.reports.sales') }}"
                            class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
                             <i class="bi bi-graph-up me-2"></i> Laporan Penjualan
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </nav>
 
