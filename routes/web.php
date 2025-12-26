@@ -145,7 +145,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 });
 
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog.index');
-Route::get('/product/{slug}', [CatalogController::class, 'show'])->name('catalog.show');
+Route::get('/product/{slug}', [CatalogController::class, 'show'])->name('catalog.show');                             
 
 // ================================================
 // AUTH ROUTES (dari Laravel UI)
