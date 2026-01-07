@@ -1,4 +1,5 @@
 <?php
+// bootstrap/app.php
 
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -10,13 +11,22 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
+    ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
-            // ↑ 'admin' adalah nama alias
-            // ↑ AdminMiddleware::class adalah class yang dijalankan
+        ]);
+
+        // ==========================================================
+        // BYPASS CSRF FOR WEBHOOKS
+        // ==========================================================
+        // Midtrans mengirim POST request dari luar aplikasi kita.
+        // Mereka tidak tahu CSRF Token kita. Jadi URL ini harus
+        // dikecualikan dari proteksi CSRF.
+        $middleware->validateCsrfTokens(except: [
+            'midtrans/notification', // Endpoint webhook kita
+            'midtrans/*',            // Wildcard (jika ada route lain)
         ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
+    ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
